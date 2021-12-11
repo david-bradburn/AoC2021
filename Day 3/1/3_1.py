@@ -23,7 +23,9 @@ for i in range(len(list[0])):
         epilson += '1'
     else:
         print("Error")
-
+##
 print(int(gamma, 2))
 print(int(epilson, 2))
 print((int(gamma, 2)) * int(epilson, 2))
+
+##1092896
