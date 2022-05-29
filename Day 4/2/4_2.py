@@ -90,10 +90,26 @@ def check_win(arr):
 
     
 
-winning_board_found = False
+winning_board_found = True
 board_index = 0
 iter_counter = 0
 
+while len(boards_proccesed_np) != 1:
+    print("Iteration {}".format(iter_counter))
+    iter_counter += 1
+    input_val = input.pop(0)
+    print(input_val)
+    tick_off_value(boards_proccesed_np, input_val)
+    print(board_check_array)
+    winning_board_found = True
+    while winning_board_found:
+        winning_board_found, board_index = check_win(board_check_array)
+        if(winning_board_found):
+            print("board \n{} \n to be deleted".format(boards_proccesed_np[board_index]))
+            boards_proccesed_np = np.delete(boards_proccesed_np, board_index, 0)
+            board_check_array = np.delete(board_check_array, board_index, 0)
+
+winning_board_found = False
 while not winning_board_found:
     print("Iteration {}".format(iter_counter))
     iter_counter += 1
@@ -102,10 +118,10 @@ while not winning_board_found:
     tick_off_value(boards_proccesed_np, input_val)
     print(board_check_array)
     winning_board_found, board_index = check_win(board_check_array)
-    # board_index
 
 
-print(boards_proccesed_np[board_index])
+print(boards_proccesed_np[0])
+print(board_check_array[0])
 
 running_sum = 0
 for x in range(5):
@@ -116,4 +132,4 @@ print(running_sum)
 print(input_val)
 print(running_sum * input_val)
 
-#11774
+##4495
