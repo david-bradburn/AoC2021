@@ -1,5 +1,4 @@
 
-
 file = "input.txt"
 file_path = "../misc/"
 with open(file_path + file, "r") as fd:
