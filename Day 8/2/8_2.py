@@ -22,28 +22,39 @@ file = "input.txt"
 file_path = "../misc/"
 with open(file_path + file, "r") as fd:
     input_raw = fd.readlines()
-    input_stripped_split = []
+    temp_data_split = []
+    temp_vals_split = []
+
     for i in input_raw:
-        # print("egg")
         temp_data = i.strip("\n").split("|")[0]
-        temp_vals = i.strip("\n").split("|")[0]
-        # print(temp.split(" "))
-        temp_data_split = temp_data.split(" ")
-        temp_vals_split = temp_vals.split(" ")
+        temp_vals = i.strip("\n").split("|")[1]
 
-        for i in temp_vals_split:
-            # print(i)
-            if i == '':
-                # print("Empty")
-                pass
-            else:
-                input_stripped_split += [i]
-
+        temp_data_split += [temp_data.strip(" ").split(" ")]
+        temp_vals_split += [temp_vals.strip(" ").split(" ")]
+        
 ### need to fix the file parsing
-seg_7 = input_stripped_split
-print(seg_7)
-seg_7_dict_master = {"a": '', "b": '', "c": ' ', "d": '', "e": '', "f": '', "g": ''}
+print(temp_data_split)
+print(temp_vals_split)
 
+seg_7_data = temp_data_split
+seg_7_vals = temp_vals_split
+# print(seg_7)
+seg_7_dict_master = {"a": '', "b": '', "c": '', "d": '', "e": '', "f": '', "g": ''}
 
+class seg_7():
+    def __init__(self, data, vals):
+        self.a = ''
+        self.b = ''
+        self.c = ''
+        self.d = ''
+        self.e = ''
+        self.f = ''
+        self.g = ''
+        self.data = data
+        self.vals = vals
+    
+    
+    def find_one_seg(self):
+        
 
 
