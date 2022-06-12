@@ -18,7 +18,7 @@
 #     gggg    gggg    ....    gggg    gggg
 #   
 
-file = "test.txt"
+file = "input.txt"
 file_path = "../misc/"
 with open(file_path + file, "r") as fd:
     input_raw = fd.readlines()
@@ -35,6 +35,7 @@ with open(file_path + file, "r") as fd:
 seg_7_data = temp_data_split
 seg_7_vals = temp_vals_split
 
+full_cnt = 0
 
 class seg_7():
 
@@ -59,6 +60,23 @@ class seg_7():
             return True
         else:
             return False
+
+    
+    def number_check(self, x, y):#
+        cnt = 0
+        if len(x) != len(y):
+            return False
+        
+        count_max = len(y)
+        for seg in x:
+            if seg in y:
+                cnt += 1
+        
+        if cnt == count_max:
+            return True
+        else:
+            return False
+
 
     def find_number(self, arr, no_to_find, no_to_compare):
         for i in arr:
@@ -99,8 +117,6 @@ class seg_7():
                 case(6):
                     self.temp_arr_len_6.append(i)
 
-        i = 0
-
         self.temp_arr_len_6 = self.find_number(self.temp_arr_len_6, 9, 4)
         self.temp_arr_len_6 =self.find_number(self.temp_arr_len_6, 0, 1)
         self.seg7_dict[self.temp_arr_len_6[0]] = 6
@@ -112,16 +128,32 @@ class seg_7():
         self.seg7_dict[self.temp_arr_len_5[0]] = 2
         self.seg7_dict_inv[2] = self.temp_arr_len_5[0]  
 
-        print(self.seg7_dict)
+        # print(self.seg7_dict)
 
+        po = 3
+        temp_no = 0
+        # print(self.vals)
+        for i in self.vals:
+            for key in self.seg7_dict:
+                # print(key, i)
+                if self.number_check(key, i):
+                    temp_no += 10**po * self.seg7_dict[key]
+                    po -= 1
+                    break
+
+        return temp_no
 
     def main(self):
-        self.__fill_seg7_dict()
+        return self.__fill_seg7_dict()
+
+for p in range(len(seg_7_data)):
+    dt = seg_7(seg_7_data[p], seg_7_vals[p])
+    temp_cnt = dt.main()
+    print(temp_cnt)
+    full_cnt += temp_cnt
+print(full_cnt)
 
 
-dt = seg_7(seg_7_data[0], seg_7_vals[0])
-dt.main()
-
-        
+## 1068933      
 
 
