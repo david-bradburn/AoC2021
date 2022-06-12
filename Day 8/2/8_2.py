@@ -18,7 +18,7 @@
 #     gggg    gggg    ....    gggg    gggg
 #   
 
-file = "input.txt"
+file = "test.txt"
 file_path = "../misc/"
 with open(file_path + file, "r") as fd:
     input_raw = fd.readlines()
@@ -31,30 +31,97 @@ with open(file_path + file, "r") as fd:
 
         temp_data_split += [temp_data.strip(" ").split(" ")]
         temp_vals_split += [temp_vals.strip(" ").split(" ")]
-        
-### need to fix the file parsing
-print(temp_data_split)
-print(temp_vals_split)
 
 seg_7_data = temp_data_split
 seg_7_vals = temp_vals_split
-# print(seg_7)
-seg_7_dict_master = {"a": '', "b": '', "c": '', "d": '', "e": '', "f": '', "g": ''}
+
 
 class seg_7():
+
     def __init__(self, data, vals):
-        self.a = ''
-        self.b = ''
-        self.c = ''
-        self.d = ''
-        self.e = ''
-        self.f = ''
-        self.g = ''
+        self.seg7_dict = {}
+        self.seg7_dict_inv = {}
+        self.temp_arr_len_5 = []
+        self.temp_arr_len_6 = []
+
         self.data = data
         self.vals = vals
-    
-    
-    def find_one_seg(self):
+
+
+    def are_all_elements_x_in_y(self, x, y):#
+        cnt = 0
+        count_max = len(x)
+        for seg in x:
+            if seg in y:
+                cnt += 1
+        
+        if cnt == count_max:
+            return True
+        else:
+            return False
+
+    def find_number(self, arr, no_to_find, no_to_compare):
+        for i in arr:
+            if self.are_all_elements_x_in_y(self.seg7_dict_inv[no_to_compare], i):
+                self.seg7_dict[i] = no_to_find
+                self.seg7_dict_inv[no_to_find] = i
+                arr.remove(i)
+                # print(arr)
+                return arr
+
+    def find_number2(self, arr, no_to_find, no_to_compare):
+        for i in arr:
+            if self.are_all_elements_x_in_y(i, self.seg7_dict_inv[no_to_compare]):
+                self.seg7_dict[i] = no_to_find
+                self.seg7_dict_inv[no_to_find] = i
+                arr.remove(i)
+                # print(arr)
+                return arr
+
+    def __fill_seg7_dict(self):
+        for i in self.data:
+            match len(i):
+                case(2):
+                    self.seg7_dict[i] = 1
+                    self.seg7_dict_inv[1] = i
+                case(3):
+                    self.seg7_dict[i] = 7
+                    self.seg7_dict_inv[7] = i
+                case(4):
+                    self.seg7_dict[i] = 4
+                    self.seg7_dict_inv[4] = i
+
+                case(7):#length
+                    self.seg7_dict[i] = 8
+                    self.seg7_dict_inv[8] = i
+                case(5):
+                    self.temp_arr_len_5.append(i)
+                case(6):
+                    self.temp_arr_len_6.append(i)
+
+        i = 0
+
+        self.temp_arr_len_6 = self.find_number(self.temp_arr_len_6, 9, 4)
+        self.temp_arr_len_6 =self.find_number(self.temp_arr_len_6, 0, 1)
+        self.seg7_dict[self.temp_arr_len_6[0]] = 6
+        self.seg7_dict_inv[6] = self.temp_arr_len_6[0]
+
+        self.temp_arr_len_5 = self.find_number(self.temp_arr_len_5, 3, 7)
+        self.temp_arr_len_5 = self.find_number2(self.temp_arr_len_5, 5, 6)
+        # print(self.seg7_dict)
+        self.seg7_dict[self.temp_arr_len_5[0]] = 2
+        self.seg7_dict_inv[2] = self.temp_arr_len_5[0]  
+
+        print(self.seg7_dict)
+
+
+    def main(self):
+        self.__fill_seg7_dict()
+
+
+dt = seg_7(seg_7_data[0], seg_7_vals[0])
+dt.main()
+
         
 
 
