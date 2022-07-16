@@ -13,11 +13,16 @@
 import numpy as np
 
 file = "test.txt"
-file_path = "../misc/"
+
+DAY_NO = "11"
+PART = "1"
+
+file_path = "Day " + DAY_NO + "/misc/"
 
 board = np.zeros((10, 10), dtype = int)
 ones = np.ones((10, 10), dtype = int)
-print(board)
+exploded_octopuses = np.zeros((10, 10), dtype = int)
+# print(board)
 with open(file_path + file, "r") as fd:
     input_raw = fd.readlines()
     input_stripped = []
@@ -32,5 +37,14 @@ print(board)
 
 
 def step1(board):
+    return board + ones
+
+
+def step2(board):
+    for row_indx, row in enumerate(board):
+        for octopus_indx,  in enumerate(row):
+            if octopus >= 9 and not board[row_indx][octopus_indx]:
+                board[row_indx][octopus_indx] = 1 ## the octopus has now exploded and is now locked?
+                
     
 # print(input_stripped)
