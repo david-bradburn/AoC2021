@@ -40,11 +40,32 @@ def step1(board):
     return board + ones
 
 
-def step2(board):
-    for row_indx, row in enumerate(board):
-        for octopus_indx,  in enumerate(row):
-            if octopus >= 9 and not board[row_indx][octopus_indx]:
-                board[row_indx][octopus_indx] = 1 ## the octopus has now exploded and is now locked?
-                
+coords = [(-1, -1), (-1,  0), (-1,  1),
+         ( 0, -1),           ( 0,  1),
+         ( 1, -1), ( 1,  0), ( 1,  1)]
+def step2(board_i):
+    past_flashes = 
+    flashes = None
+    exploded_octopuses = np.zeros((10, 10), dtype = int)
+    while past_flashes != flashes:
+        
+        for row_indx, row in enumerate(board_i):
+            for octopus_indx, octopus in enumerate(row):
+                # print(octopus)
+                if octopus >= 9 and not exploded_octopuses[row_indx][octopus_indx]:
+                    print("Octopus flashes")
+                    exploded_octopuses[row_indx][octopus_indx] = 1 ## the octopus has now exploded and is now locked?
+                    board_i[row_indx][octopus_indx] = 0
+                    for x, y in coords:
+                        new_y = row_indx + y
+                        new_x = octopus_indx + x
+                        in_bounds_x = new_x >= 0 and new_x < 10
+                        in_bounds_y = new_y >= 0 and new_y < 10
+                        if in_bounds_x and in_bounds_y and not exploded_octopuses[new_y][new_x]:
+                            board_i[new_y][new_x] += 1
+        flashes = board_i
+        return board_i
     
-# print(input_stripped)
+board = step1(board)
+board = step2(board)
+print(board)
