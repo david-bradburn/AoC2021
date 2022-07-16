@@ -10,8 +10,8 @@ with open(file_path + file, "r") as fd:
     input_stripped += [i.strip("\n") for i in input_raw]
 
 nav_syn = input_stripped
-for line in nav_syn:
-    print(line)
+# for line in nav_syn:
+#     print(line)
 
 
 syn_dict = {")" : "(", 
@@ -35,7 +35,7 @@ for line in nav_syn:
             case "(" | "[" | "{" | "<":
                 fifo += bracket
             
-            case default :
+            case ")" | "]" | "}" | ">":
                 if fifo[-1] == syn_dict[bracket]:
                     # print(fifo)
                     fifo = fifo[:-1]
