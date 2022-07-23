@@ -77,3 +77,7 @@ for i in range(NO_OF_STEPS):
     print("After Step {}".format(i + 1))
     print(board)
     print("No of flashes {}".format(no_of_flashes))
+
+
+
+##  1681
