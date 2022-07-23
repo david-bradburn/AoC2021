@@ -17,13 +17,13 @@ file = "input.txt"
 DAY_NO = "11"
 PART = "1"
 
-file_path = "Day " + DAY_NO + "/misc/"
+file_path_base = "Day " + DAY_NO + "/misc/"
 
 board = np.zeros((10, 10), dtype = int)
 ones = np.ones((10, 10), dtype = int)
 exploded_octopuses = np.zeros((10, 10), dtype = int)
 # print(board)
-with open(file_path + file, "r") as fd:
+with open(file_path_base + file, "r") as fd:
     input_raw = fd.readlines()
     input_stripped = []
     input_stripped += [i.strip("\n") for i in input_raw]
