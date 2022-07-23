@@ -12,7 +12,7 @@
 
 import numpy as np
 
-file = "test.txt"
+file = "input.txt"
 
 DAY_NO = "11"
 PART = "1"
@@ -36,36 +36,44 @@ with open(file_path + file, "r") as fd:
 print(board)
 
 
-def step1(board):
+def increaseEnergyLevel(board):
     return board + ones
 
 
-coords = [(-1, -1), (-1,  0), (-1,  1),
+COORDS = [(-1, -1), (-1,  0), (-1,  1),
          ( 0, -1),           ( 0,  1),
          ( 1, -1), ( 1,  0), ( 1,  1)]
-def step2(board_i):
-    past_flashes = 
-    flashes = None
+
+def explodeOctopus(board_i):
+    past_flashes = None
+    flashes = 0
     exploded_octopuses = np.zeros((10, 10), dtype = int)
     while past_flashes != flashes:
-        
+        past_flashes = flashes
         for row_indx, row in enumerate(board_i):
             for octopus_indx, octopus in enumerate(row):
                 # print(octopus)
-                if octopus >= 9 and not exploded_octopuses[row_indx][octopus_indx]:
-                    print("Octopus flashes")
+                if octopus > 9 and not exploded_octopuses[row_indx][octopus_indx]:
+                    flashes += 1
+                    # print("Octopus flashes")
                     exploded_octopuses[row_indx][octopus_indx] = 1 ## the octopus has now exploded and is now locked?
                     board_i[row_indx][octopus_indx] = 0
-                    for x, y in coords:
+                    for x, y in COORDS:
                         new_y = row_indx + y
                         new_x = octopus_indx + x
                         in_bounds_x = new_x >= 0 and new_x < 10
                         in_bounds_y = new_y >= 0 and new_y < 10
                         if in_bounds_x and in_bounds_y and not exploded_octopuses[new_y][new_x]:
                             board_i[new_y][new_x] += 1
-        flashes = board_i
-        return board_i
-    
-board = step1(board)
-board = step2(board)
-print(board)
+
+    return board_i, flashes
+
+no_of_flashes = 0
+NO_OF_STEPS = 100
+for i in range(NO_OF_STEPS):
+    board = increaseEnergyLevel(board)
+    board, temp_flashes = explodeOctopus(board)
+    no_of_flashes += temp_flashes
+    print("After Step {}".format(i + 1))
+    print(board)
+    print("No of flashes {}".format(no_of_flashes))
