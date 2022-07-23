@@ -45,6 +45,14 @@ def main():
         print("Misc file already exists")
         return
 
+    test_path = os.path.join(misc_path, "test.txt")
+    input_path = os.path.join(misc_path, "input.txt")
+     
+    f = open(test_path, "w")
+    f.close()
+    f = open(input_path, "w")
+    f.close()
+
 
 
 
