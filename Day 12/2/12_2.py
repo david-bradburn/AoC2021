@@ -1,4 +1,6 @@
-file = "test1.txt"
+
+
+file = "input.txt"
 
 DAY_NO = "12"
 PART = "2"
@@ -53,54 +55,54 @@ class CaveSystem:
 
 	def create_cave_list(self):
 		for cave_key in self.cave_network:
-			self.cave_list[cave_key] = Cave(cave_key)
+			self.global_cave_list[cave_key] = Cave(cave_key)
 
-		self.cave_list["end"] = Cave("end")
+		self.global_cave_list["end"] = Cave("end")
 
 
 	def display_cave_network(self):
 		for key in self.cave_network:
 			for cave in self.cave_network[key]:
 				# print(key, cave)
-				print(key, cave, self.cave_list[cave].cave_type)
+				print(key, cave, self.global_cave_list[cave].cave_type)
 	
 
 	def traverse(self, cave):
-		local_cave_type = self.cave_list[cave].cave_type
+		local_cave_type = self.global_cave_list[cave].cave_type
 		if local_cave_type == "end":
 			self.no_of_valid_routes += 1
 			self.list_of_routes += [self.path_through_cave_system]
 			print(self.list_of_routes[-1])
 			return 
-		elif self.cave_list[cave].visited and not self.visited_small_cave_twice:
+		elif self.global_cave_list[cave].visited and not self.visited_small_cave_twice:
 			self.visited_small_cave_twice = True
-			self.cave_list[cave].visited_twice = True
+			self.global_cave_list[cave].visited_twice = True
 		elif local_cave_type == "small":
-			self.cave_list[cave].visited = True
-		
+			self.global_cave_list[cave].visited = True
 		elif local_cave_type == "large":
 			pass
 		else:
 			print("At start point")
 
 		for cave_option in self.cave_network[cave]:
-			if (not self.cave_list[cave_option].visited) or ((self.cave_list[cave_option].cave_type == "small") and (not self.visited_small_cave_twice) and (self.cave_list[cave_option].visited)):
+			if (not self.global_cave_list[cave_option].visited) or ((not self.visited_small_cave_twice) and (self.global_cave_list[cave_option].visited)):
 				self.path_through_cave_system += [cave_option]
+
+					
 				self.traverse(cave_option)
-				self.cave_list[cave_option].visited = False
-				if self.cave_list[cave_option].visited_twice:
-					self.cave_list[cave_option].visited_twice = False
+				if(not self.global_cave_list[cave_option].visited_twice):
+					self.global_cave_list[cave_option].visited = False
+				if self.global_cave_list[cave_option].visited_twice:
+					self.global_cave_list[cave_option].visited_twice = False
 					self.visited_small_cave_twice = False
+					
 				self.path_through_cave_system = self.path_through_cave_system[:-1]
 
 		return 
 
 
-	
-
-
 	def __init__(self, map):
-		self.cave_list = {}
+		self.global_cave_list = {}
 		self.path_through_cave_system = ["start"]
 		self.cave_network = {}
 		self.list_of_routes = []
@@ -117,3 +119,4 @@ caves.display_cave_network()
 caves.traverse("start")
 print(caves.no_of_valid_routes)
 
+## 147848

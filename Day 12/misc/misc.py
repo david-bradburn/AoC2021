@@ -4,7 +4,7 @@
 file = "test1.txt"
 
 DAY_NO = "12"
-PART = "1"
+PART = "N/A"
 
 file_path_base = "Day " + DAY_NO + "/misc/"
 
@@ -82,9 +82,11 @@ class CaveSystem:
 			pass
 		else:
 			print("At start point")
-
-		for cave_option in self.cave_network[cave]:
+    
+		list_of_cave_options = self.cave_network[cave]
+		for cave_option in list_of_cave_options:
 			if not self.cave_list[cave_option].visited:
+				
 				self.path_through_cave_system += [cave_option]
 				self.traverse(cave_option)
 				self.cave_list[cave_option].visited = False
@@ -114,4 +116,3 @@ caves.traverse("start")
 print(caves.no_of_valid_routes)
 
 
-# 4720
