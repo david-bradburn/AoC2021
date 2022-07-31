@@ -1,7 +1,7 @@
 
 
 
-file = "input.txt"
+file = "test.txt"
 
 DAY_NO = "14"
 PART = "1"
@@ -39,6 +39,7 @@ for step in range(no_of_steps):
 		try:
 			new_code += code_dict[element + code[index+1]]
 		except IndexError:
+			print("Step {} completed".format(step+1))
 			# print("End of step")
 			# print("New code {}".format(new_code))
 			pass
