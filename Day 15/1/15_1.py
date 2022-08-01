@@ -1,4 +1,5 @@
 import numpy as np
+from time import time
 
 
 file = "input.txt"
@@ -14,10 +15,10 @@ with open(file_path_base + file, "r") as fd:
 	max_x = len(input_stripped[0])
 	max_y = len(input_stripped)
 	assert max_x == max_y
-	cavern = np.zeros((max_x, max_y), dtype=int)	
+	cavern1 = np.zeros((max_x, max_y), dtype=int)	
 	for row_index, row in enumerate(input_stripped):
 		for value_index, value in enumerate(row):
-			cavern[row_index][value_index] = value
+			cavern1[row_index][value_index] = value
 			pass
 	
 
@@ -26,7 +27,7 @@ with open(file_path_base + file, "r") as fd:
 class Cavern:
 	def __init__(self, arr):
 		self.cavern = arr
-		self.risk_arr = np.ones_like(cavern, dtype=int) * 1000
+		self.risk_arr = np.ones_like(self.cavern, dtype=int) * 1000
 		self.open_list = [(0,0)]
 
 	def evaluate(self):
@@ -35,7 +36,7 @@ class Cavern:
 						   ( 0, -1),
 						   ( 0,  1)]
 		for x, y in self.open_list:
-			print(x, y)
+			# print(x, y)
 			self.risk_arr[0][0] = 0
 			for offset_x, offset_y in list_of_offsets:
 				new_y = y + offset_y
@@ -50,8 +51,6 @@ class Cavern:
 				
 
 
-		
-
 	def display(self):
 		for row in self.cavern:
 			temp_str = ""
@@ -60,9 +59,15 @@ class Cavern:
 			print(temp_str)
 
 
-cavern = Cavern(cavern)
-cavern.display()
-cavern.evaluate()
+N = 1
+total_time = 0
+for i in range(N):
+	cavern = Cavern(cavern1)
+	
+	time1 = time()
+	cavern.evaluate()
+	time2 = time()
+	total_time += time2- time1
+print(total_time/N)
 cavern.display_risk()
-
 ## 673
