@@ -1,10 +1,8 @@
 
 import os
-# import selenium
+# from url import get_aoc_url
 
-# url = "https://adventofcode.com/"
-# driver = webdriver.Chrome()
-
+year = 2021
 
 def ask_for_day():
     day_no = str(input("Enter day no: "))
@@ -22,7 +20,7 @@ def make_part_folder_and_files(day_path_i, day, part):
     boiler_plate_str = ""
     for line in boiler_plate_arr:
         boiler_plate_str += line
-    boiler_plate = boiler_plate_str.format(day, part)
+    boiler_plate = boiler_plate_str.format(year, day, day, part)
     
     f.write(boiler_plate)
     f.close()
