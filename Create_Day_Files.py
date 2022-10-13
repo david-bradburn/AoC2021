@@ -1,5 +1,10 @@
 
 import os
+# import selenium
+
+# url = "https://adventofcode.com/"
+# driver = webdriver.Chrome()
+
 
 def ask_for_day():
     day_no = str(input("Enter day no: "))
