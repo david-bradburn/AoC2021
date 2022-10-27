@@ -6,7 +6,7 @@
 
 import numpy as np
 
-file = "input.txt"
+file = "test.txt"
 
 DAY_NO = "20"
 PART = "1"

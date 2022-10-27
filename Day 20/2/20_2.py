@@ -6,7 +6,7 @@
 
 import numpy as np
 
-file = "input.txt"
+file = "test.txt"
 
 DAY_NO = "20"
 PART = "2"
@@ -112,5 +112,7 @@ class Image:
 
 board_c = Image(board)
 
+# np.set_printoptions(threshold = np.inf)
+# np.savetxt('test.txt', board_c.board, fmt='%u')
 
 #17987
