@@ -2,10 +2,10 @@
 ###### https://adventofcode.com/2021/day/21 #####################
 #################################################################
 
-from turtle import pos
+# from turtle import pos
 
 
-file = "input.txt"
+file = "test.txt"
 
 DAY_NO = "21"
 PART = "2"
@@ -55,6 +55,7 @@ class Dirac_Board():
 
 		self.multiverse_score_counter = Game_Scores()
 		self.quantum_rolls = [3, 4, 5, 6, 7, 8, 9]
+		self.no_of_universes = [1, 3, 6, 7, 6, 3, 1]
 
 		self.play()
 		
@@ -83,9 +84,9 @@ class Dirac_Board():
 
 		
 
-
+##Need to do a path finding style recursion of the universes. Times the number as you go,
 	
-	def play(self):
+	# def play(self):
 
 
 	
@@ -117,5 +118,5 @@ class Dirac_Board():
 
 # game = Dirac_Board(player_1_start_raw, player_2_start_raw)
 
-##998088
+
 
