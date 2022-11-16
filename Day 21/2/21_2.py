@@ -5,7 +5,7 @@
 # from turtle import pos
 
 
-file = "test.txt"
+file = "input.txt"
 
 DAY_NO = "21"
 PART = "2"
@@ -28,11 +28,17 @@ class Game_Scores():
 		self.p2_games_won = 0
 
 	
-	def p1_won(self):
-		self.p1_games_won += 1
+	def player_won(self, player, no_universes):
+		match player:
+			case 0:
+				self.p1_games_won += no_universes
+			case 1:
+				self.p2_games_won += no_universes
+
+		
 	
-	def p2_won(self):
-		self.p2_games_won += 1
+	def p2_won(self, no_universes):
+		self.p2_games_won += no_universes
 
 # class Dirac_Dice_Game()
 
@@ -41,17 +47,12 @@ class Game_Scores():
 
 class Dirac_Board():
 
-	def __init__(self, p1_st: int, p2_st: int, p1_cur_score = 0, p2_cur_score = 0) -> None:
-		self.p1_position = p1_st
-		self.p1_score = 0
-		self.p2_position = p2_st
-		self.p2_score = 0
-		
-		self.p1_cur_score = p1_cur_score
+	def __init__(self, p1_st: int, p2_st: int) -> None:
 
-		self.p2_cur_score = p2_cur_score
+		self.player_pos_arr= [p1_st, p2_st]
+		self.player_score_arr = [0, 0]
 
-		self.player_turn = 0
+		self.MAX_SCORE = 21
 
 		self.multiverse_score_counter = Game_Scores()
 		self.quantum_rolls = [3, 4, 5, 6, 7, 8, 9]
@@ -73,50 +74,43 @@ class Dirac_Board():
 
 		return new_pos
 
-	def roll_dice(self, position, score):
-		new_universes = []
-		for roll in self.quantum_rolls:
-			temp = self.update_position(self, position, roll)
-			new_universes += [temp, score + temp]
-
-		return new_universes
 
 
 		
 
 ##Need to do a path finding style recursion of the universes. Times the number as you go,
-	
-	# def play(self):
+	def player_takes_turn(self, player_turn, position_arr: list, score_arr: list, no_universes: int) -> None:
+		temp_position_arr = [0, 0]
+		temp_score_arr = [0, 0]
+		temp_position_arr[not player_turn] = position_arr[not player_turn]
+		temp_score_arr[not player_turn] = score_arr[not player_turn]
+
+		for roll_index, roll in enumerate(self.quantum_rolls):
+			temp_position_arr[player_turn] = self.update_position(position_arr[player_turn], roll)
+			temp_score_arr[player_turn] = score_arr[player_turn] + temp_position_arr[player_turn]
+			temp_no_universe = no_universes * self.no_of_universes[roll_index]
+
+			if temp_score_arr[player_turn] >= self.MAX_SCORE:	
+				self.multiverse_score_counter.player_won(player_turn, temp_no_universe)
+				continue
+			else:
+				self.player_takes_turn(not player_turn, temp_position_arr, temp_score_arr, temp_no_universe)
 
 
-	
-
-# 	def main(self):
-# 		while (self.p1_score < MAX_SCORE) and (self.p2_score < MAX_SCORE):
-# 			match self.player_turn:
-# 				case 0:
-# 					roll = self.roll_next_3_numbers()
-# 					self.p1_position = self.update_position(self.p1_position, roll)
-# 					self.p1_score += self.p1_position
-# 					self.player_turn = 1
-				
-# 				case 1:
-# 					roll = self.roll_next_3_numbers()
-# 					self.p2_position = self.update_position(self.p2_position, roll)
-# 					self.p2_score += self.p2_position
-# 					self.player_turn = 0
+	def play(self):
+		player_turn = 0
+		self.player_takes_turn(player_turn, self.player_pos_arr, self.player_score_arr, 1)
+		print(self.multiverse_score_counter.p1_games_won)
+		print(self.multiverse_score_counter.p2_games_won)
+		print("--------------")
 		
-# 		print(self.global_roll_counter)
-# 		print(self.p1_score)
-# 		print(self.p2_score)
 
-			
+		
 
+# game = Dirac_Board	
 
 
+game = Dirac_Board(player_1_start_raw, player_2_start_raw)
 
 
-# game = Dirac_Board(player_1_start_raw, player_2_start_raw)
-
-
-
+## 306621346123766
