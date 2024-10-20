@@ -1,0 +1,25 @@
+/////////////////////////////////////////////////////////////////
+////// https://adventofcode.com/{year}/day/{day} ///////////////////////
+/////////////////////////////////////////////////////////////////
+
+#include <iostream>
+#include <fstream>
+#include <string>
+using namespace std;
+
+string open_file(string file_path) {
+  
+}
+
+int main() {{
+  string file = "test.txt";
+  string DAY_NO = "{day}";
+  string PART = "{part}";
+
+  string file_path = "Day " + DAY_NO + "/misc/" + file;
+
+  std::ifstream myfile (file_path);
+
+  cout << "Hello World!";
+  return 0;
+}}
