@@ -1,3 +1,3 @@
 *.exe
 .vscode
-Day */misc/input.txt
+Day */misc/*.txt
